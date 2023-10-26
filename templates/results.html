@@ -1,65 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1 Race Results</title>
-    <link rel="stylesheet" href="/static/style.css">
+{% extends "base.html" %} {% block title %}F1 Race Current Results{% endblock %}
+{% block content %}
 
-    <title>F1 Race Results</title>
-  </head>
-  <body>
-    <h1>F1 Race Results</h1>
-    <h2>Race Information</h2>
-    <table>
-      <tr>
-        <th>Season</th>
-        <th>Round</th>
-        <th>Race Name</th>
-        <th>Locality</th>
-        <th>Country</th>
-      </tr>
-      <tr>
-        <td>{{ race_info.season }}</td>
-        <td>{{ race_info.round }}</td>
-        <td>{{ race_info.raceName }}</td>
-        <td>{{ race_info.Circuit.Location.locality }}</td>
-        <td>{{ race_info.Circuit.Location.country }}</td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-        <th>Position</th>
-        <th>Driver</th>
-        <th>Constructor</th>
-        <th>Laps</th>
-        <th>Grid</th>
-        <th>Time</th>
-        <th>Fastest Lap Time</th>
-        <th>Average Speed (kph)</th>
-        <th>Status</th>
-        <th>Points</th>
-      </tr>
-      {% for result in race_results %}
-      <tr>
-        <td>{{ result.position }}</td>
-        <td>{{ result.Driver.givenName }} {{ result.Driver.familyName }}</td>
-        <td>{{ result.Constructor.name }}</td>
-        <td>{{ result.laps }}</td>
-        <td>{{ result.grid }}</td>
-        <!-- The following code is used to safely display the 'Time' if it exists in the result -->
-        <td>{% if result.Time %} {{ result.Time.time }} {% endif %}</td>
-        <td>
-          {% if result.FastestLap is defined %}{{ result.FastestLap.Time.time
-          }}{% endif %}
-        </td>
-        <td>
-          {% if result.FastestLap is defined %}{{ "%.2f"|format(result.FastestLap.AverageSpeed.speed|float) }}{% endif %}
-        </td>
-        <td>{{ result.status }}</td>
-        <td>{{ result.points }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-  </body>
-</html>
+<h1>F1 Race Results</h1>
+<h2>Race Information</h2>
+<table>
+  <tr>
+    <th>Season</th>
+    <th>Round</th>
+    <th>Race Name</th>
+    <th>Locality</th>
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>{{ race_info.season }}</td>
+    <td>{{ race_info.round }}</td>
+    <td>{{ race_info.raceName }}</td>
+    <td>{{ race_info.Circuit.Location.locality }}</td>
+    <td>{{ race_info.Circuit.Location.country }}</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <th>Position</th>
+    <th>Driver</th>
+    <th>Constructor</th>
+    <th>Laps</th>
+    <th>Starting Grid</th>
+    <th>Time</th>
+    <th>Fastest Lap Time</th>
+    <th>Average Speed (kph)</th>
+    <th>Status</th>
+    <th>Points</th>
+  </tr>
+  {% for result in race_results %}
+  <tr>
+    <td>{{ result.position }}</td>
+    <td>{{ result.Driver.givenName }} {{ result.Driver.familyName }}</td>
+    <td>{{ result.Constructor.name }}</td>
+    <td>{{ result.laps }}</td>
+    <td>{{ result.grid }}</td>
+    <!-- The following code is used to safely display the 'Time' if it exists in the result -->
+    <td>{% if result.Time %} {{ result.Time.time }} {% endif %}</td>
+    <td>
+      {% if result.FastestLap is defined %}{{ result.FastestLap.Time.time }}{%
+      endif %}
+    </td>
+    <td>
+      {% if result.FastestLap is defined %}{{
+      "%.2f"|format(result.FastestLap.AverageSpeed.speed|float) }}{% endif %}
+    </td>
+    <td>{{ result.status }}</td>
+    <td>{{ result.points }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My App{% endblock %}</title>
+    <!-- Add your common CSS and JavaScript files here -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <!-- Your header content goes here -->
+    </header>
+    <nav>
+        <!-- Your navigation menu goes here -->
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <!-- Your footer content goes here -->
+    </footer>
+</body>
+</html>
