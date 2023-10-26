@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}My App{% endblock %}</title>
+    <title>{% block title %}FastAPI Project{% endblock %}</title>
     <!-- Add your common CSS and JavaScript files here -->
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <header>
-        <!-- Your header content goes here -->
+        <h1>Welcome to My FastAPI Project</h1>
     </header>
     <nav>
-        <!-- Your navigation menu goes here -->
+        <ul>
+            <li><a href="">Home</a></li>
+            <!-- Add more navigation links here if needed -->
+        </ul>
     </nav>
     <main>
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
     </main>
     <footer>
         <!-- Your footer content goes here -->

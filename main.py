@@ -1,5 +1,6 @@
 import requests
 from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -10,12 +11,12 @@ templates = Jinja2Templates(
 )  # Directory where your HTML templates are stored
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.get("/", response_class=HTMLResponse)
+async def read_home(request: Request):  # Add 'request' as a parameter
+    return templates.TemplateResponse("home.html", {"request": request})
 
 
-@app.get("/f1/current/last/results")
+@app.get("/current_results")
 async def get_last_f1_results(request: Request):
     ergast_api_url = "http://ergast.com/api/f1/current/last/results.json"
 

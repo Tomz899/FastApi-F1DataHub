@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>This is a simple FastAPI project that demonstrates how to build a web application with a RESTful API.</p>
+  
+  <h2>About the API</h2>
+  <p>The API provides information about Formula 1 race results. You can use the following endpoints:</p>
+  
+  <ul>
+    <li><strong>GET /results</strong>: Get a list of recent race results.</li>
+    <li><strong>GET /results/{race_id}</strong>: Get details of a specific race result.</li>
+  </ul>
+  
+  <h2>Technologies Used</h2>
+  <p>This project is built using the following technologies:</p>
+  
+  <ul>
+    <li><strong>FastAPI</strong>: A modern, fast (high-performance), web framework for building APIs with Python.</li>
+    <li><strong>Jinja2</strong>: A template engine for Python, used for rendering HTML templates.</li>
+  </ul>
+{% endblock %}
