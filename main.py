@@ -16,8 +16,8 @@ async def read_home(request: Request):  # Add 'request' as a parameter
     return templates.TemplateResponse("home.html", {"request": request})
 
 
-@app.get("/current_results")
-async def get_last_f1_results(request: Request):
+@app.get("/current_results", response_class=HTMLResponse)
+async def current_results(request: Request):
     ergast_api_url = "http://ergast.com/api/f1/current/last/results.json"
 
     try:
