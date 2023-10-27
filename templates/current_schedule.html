@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %}F1 Race Current Results{% endblock %}
+{% block content %}
+
+<h1>Current F1 Race Schedule</h1>
+
+<table>
+  <tr>
+    <th>Season</th>
+    <th>Round</th>
+    <th>Race Name</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Sprint</th>
+    <th>Circuit</th>
+    <th>Country</th>
+  </tr>
+  {% for gp in schedule_data %}
+  <tr>
+    <td>{{ gp.season }}</td>
+    <td>{{ gp.round }}</td>
+    <td>{{ gp.raceName }}</td>
+    <td>{{ gp.date }}</td>
+    <td>{{ gp.time }}</td>
+    <td>{% if gp.Sprint %} {{ gp.Sprint.date }} {% endif %}</td>
+    <td>{{ gp.Circuit.circuitName }}</td>
+    <td>{{ gp.Circuit.Location.country }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,3 +1,4 @@
+import httpx
 import requests
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
@@ -58,3 +59,23 @@ async def current_results(request: Request):
             ],  # Include race results
         },
     )
+
+
+@app.get("/current_schedule", response_class=HTMLResponse)
+async def current_schedule(request: Request):
+    ergast_api_url = "https://ergast.com/api/f1/current.json"
+
+    async with httpx.AsyncClient() as client:
+        response = await client.get(ergast_api_url)
+
+        if response.status_code == 200:
+            data = response.json()
+            schedule_data = data["MRData"]["RaceTable"]["Races"]
+            return templates.TemplateResponse(
+                "current_schedule.html",
+                {"request": request, "schedule_data": schedule_data},
+            )
+
+        return HTMLResponse(
+            content="<html><body>Error fetching data from Ergast API</body></html>"
+        )
