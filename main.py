@@ -1,5 +1,4 @@
 import httpx
-import requests
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -21,44 +20,46 @@ async def read_home(request: Request):  # Add 'request' as a parameter
 async def current_results(request: Request):
     ergast_api_url = "http://ergast.com/api/f1/current/last/results.json"
 
-    try:
-        response = requests.get(ergast_api_url)
-        response.raise_for_status()  # Check for HTTP errors
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(ergast_api_url)
+            response.raise_for_status()  # Check for HTTP errors
 
-        if response.status_code == 200:
-            data = response.json()
-        else:
+            if response.status_code == 200:
+                data = response.json()
+            else:
+                return templates.TemplateResponse(
+                    "error.html",
+                    {
+                        "request": request,
+                        "error_message": "Failed to fetch data from Ergast F1 API",
+                    },
+                )
+
+        except httpx.RequestError as e:
             return templates.TemplateResponse(
                 "error.html",
-                {
-                    "request": request,
-                    "error_message": "Failed to fetch data from Ergast F1 API",
-                },
+                {"request": request, "error_message": f"Request error: {e}"},
             )
 
-    except requests.exceptions.RequestException as e:
-        return templates.TemplateResponse(
-            "error.html", {"request": request, "error_message": f"Request error: {e}"}
-        )
+        except ValueError as e:
+            return templates.TemplateResponse(
+                "error.html",
+                {"request": request, "error_message": f"JSON decoding error: {e}"},
+            )
 
-    except ValueError as e:
         return templates.TemplateResponse(
-            "error.html",
-            {"request": request, "error_message": f"JSON decoding error: {e}"},
+            "results.html",
+            {
+                "request": request,
+                "race_info": data["MRData"]["RaceTable"]["Races"][
+                    -1
+                ],  # Include race information
+                "race_results": data["MRData"]["RaceTable"]["Races"][-1][
+                    "Results"
+                ],  # Include race results
+            },
         )
-
-    return templates.TemplateResponse(
-        "results.html",
-        {
-            "request": request,
-            "race_info": data["MRData"]["RaceTable"]["Races"][
-                -1
-            ],  # Include race information
-            "race_results": data["MRData"]["RaceTable"]["Races"][-1][
-                "Results"
-            ],  # Include race results
-        },
-    )
 
 
 @app.get("/current_schedule", response_class=HTMLResponse)
