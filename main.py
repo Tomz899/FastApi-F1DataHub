@@ -80,3 +80,44 @@ async def current_schedule(request: Request):
         return HTMLResponse(
             content="<html><body>Error fetching data from Ergast API</body></html>"
         )
+
+
+@app.get("/driver_standings", response_class=HTMLResponse)
+async def driver_standings(request: Request):
+    ergast_api_url = "https://ergast.com/api/f1/current/driverStandings.json"
+
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(ergast_api_url)
+            response.raise_for_status()  # Check for HTTP errors
+
+            if response.status_code == 200:
+                data = response.json()
+            else:
+                return templates.TemplateResponse(
+                    "error.html",
+                    {
+                        "request": request,
+                        "error_message": "Failed to fetch driver standings from Ergast F1 API",
+                    },
+                )
+
+        except httpx.RequestError as e:
+            return templates.TemplateResponse(
+                "error.html",
+                {"request": request, "error_message": f"Request error: {e}"},
+            )
+
+    standings = data["MRData"]["StandingsTable"]["StandingsLists"][0]["DriverStandings"]
+    season = data["MRData"]["StandingsTable"]["season"]
+    round_num = data["MRData"]["StandingsTable"]["StandingsLists"][0]["round"]
+
+    return templates.TemplateResponse(
+        "driver_standings.html",
+        {
+            "request": request,
+            "driver_standings": standings,
+            "season": season,
+            "round_num": round_num,
+        },
+    )

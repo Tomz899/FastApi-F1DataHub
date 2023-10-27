@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}F1 Driver Standings{% endblock %}
+
+{% block content %}
+    <h1>Current F1 Driver Standings</h1>
+
+    <table style="table-layout: fixed; width: 40%;">
+        <tr>
+            <th>Season</th>
+            <th>Round</th>
+        </tr>
+
+        <tr>
+            <td>{{ season }}</td>
+            <td>{{ round_num }}</td>
+        </tr>
+     
+    </table>
+
+    <table style="table-layout: fixed; width: 100%;">
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+            <th>Constructor</th>
+            <th>Points</th>
+            <th>Wins</th>
+        </tr>
+        {% for pos in driver_standings %}
+        <tr>
+            <td>{{ pos.position }}</td>
+            <td>{{ pos.Driver.givenName }} {{ pos.Driver.familyName }}</td>
+            <td>{{ pos.Constructors[0].name }}</td>
+            <td>{{ pos.points }}</td>
+            <td>{{ pos.wins }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
