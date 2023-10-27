@@ -4,13 +4,47 @@ body {
     padding: 0;
     background-color: #f0f0f0;
 }
-
+/* header */
 header {
-    background-color: #007BFF;
-    color: white;
+    background-color: #D30000;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
+
+
+.header-title {
+    margin: 0;
+    color: #fff;
+}
+
+/* navbar */
+nav {
+    background-color: #333;
+    text-align: center;
+    color: #fff;
+    padding: 5px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
 
 .container {
     max-width: 800px;
