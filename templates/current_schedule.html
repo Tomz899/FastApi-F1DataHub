@@ -19,9 +19,9 @@
     <td>{{ gp.season }}</td>
     <td>{{ gp.round }}</td>
     <td>{{ gp.raceName }}</td>
-    <td>{{ gp.date }}</td>
+    <td class="no-wrap">{{ gp.date }}</td>
     <td>{{ gp.time }}</td>
-    <td>{% if gp.Sprint %} {{ gp.Sprint.date }} {% endif %}</td>
+    <td class="no-wrap">{% if gp.Sprint %} {{ gp.Sprint.date }} {% endif %}</td>
     <td>{{ gp.Circuit.circuitName }}</td>
     <td>{{ gp.Circuit.Location.country }}</td>
   </tr>

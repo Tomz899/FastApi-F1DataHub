@@ -81,3 +81,7 @@ tr:nth-child(even) {
 a {
     color: #0074d9;
 }
+
+.no-wrap {
+    white-space: nowrap;
+}
