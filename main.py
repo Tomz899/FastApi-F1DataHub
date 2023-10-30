@@ -121,3 +121,46 @@ async def driver_standings(request: Request):
             "round_num": round_num,
         },
     )
+
+
+@app.get("/constructors_standings", response_class=HTMLResponse)
+async def constructors_standings(request: Request):
+    ergast_api_url = "http://ergast.com/api/f1/current/constructorStandings.json"
+
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(ergast_api_url)
+            response.raise_for_status()  # Check for HTTP errors
+
+            if response.status_code == 200:
+                data = response.json()
+            else:
+                return templates.TemplateResponse(
+                    "error.html",
+                    {
+                        "request": request,
+                        "error_message": "Failed to fetch constructors standings from Ergast F1 API",
+                    },
+                )
+
+        except httpx.RequestError as e:
+            return templates.TemplateResponse(
+                "error.html",
+                {"request": request, "error_message": f"Request error: {e}"},
+            )
+
+    standings = data["MRData"]["StandingsTable"]["StandingsLists"][0][
+        "ConstructorStandings"
+    ]
+    season = data["MRData"]["StandingsTable"]["season"]
+    round_num = data["MRData"]["StandingsTable"]["StandingsLists"][0]["round"]
+
+    return templates.TemplateResponse(
+        "constructors_standings.html",
+        {
+            "request": request,
+            "constructors_standings": standings,
+            "season": season,
+            "round_num": round_num,
+        },
+    )

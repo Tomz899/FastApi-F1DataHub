@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}F1 Driver Standings{% endblock %}
+{% block title %}F1 Constructors Standings{% endblock %}
 
 {% block content %}
-    <h1>Current F1 Driver Standings</h1>
+    <h1>Current F1 Constructors Standings</h1>
 
     <table style="table-layout: fixed; width: 40%;">
         <tr>
@@ -21,16 +21,14 @@
     <table style="table-layout: fixed; width: 100%;">
         <tr>
             <th>Pos</th>
-            <th>Driver</th>
             <th>Constructor</th>
             <th>Wins</th>
             <th>Points</th>
         </tr>
-        {% for pos in driver_standings %}
+        {% for pos in constructors_standings %}
         <tr>
             <td>{{ pos.position }}</td>
-            <td>{{ pos.Driver.givenName }} {{ pos.Driver.familyName }}</td>
-            <td>{{ pos.Constructors[0].name }}</td>
+            <td>{{ pos.Constructor.name }}</td>
             <td>{{ pos.wins }}</td>
             <td>{{ pos.points }}</td>
         </tr>
