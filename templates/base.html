@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>{% block title %}FastAPI Project{% endblock %}</title>
-    <!-- Add your common CSS and JavaScript files here -->
-    <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700">
-</head>
-<body>
+  <head>
+    <title>{% block title %}F1 Data Hub{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700"
+    />
+  </head>
+  <body>
     <header>
-        <h1 class="header-title">Welcome to My FastAPI Project</h1>
+      <h1 class="header-title">F1 Data Hub</h1>
     </header>
     <nav class="navbar">
-        <ul>
-            <li><a href="{{ url_for('read_home') }}">Home</a></li>
-            <li><a href="{{ url_for('current_schedule') }}">Current Schedule</a></li>
-            <li><a href="{{ url_for('current_results') }}">Recent Results</a></li>
-            <li><a href="{{ url_for('driver_standings') }}">Driver Standings</a></li>
-            <li><a href="{{ url_for('constructors_standings') }}">Constructors Standings</a></li>
-        </ul>
+      <ul>
+        <li><a href="{{ url_for('read_home') }}">Home</a></li>
+        <li>
+          <a href="{{ url_for('current_schedule') }}">Current Schedule</a>
+        </li>
+        <li><a href="{{ url_for('current_results') }}">Recent Results</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Standings</a>
+          <div class="dropdown-content">
+            <a href="{{ url_for('driver_standings') }}">Driver Standings</a>
+            <a href="{{ url_for('constructors_standings') }}"
+              >Constructors Standings</a
+            >
+          </div>
+        </li>
+      </ul>
     </nav>
     <main>
-        <div class="container">
-            {% block content %}{% endblock %}
-        </div>
+      <div class="container">{% block content %}{% endblock %}</div>
     </main>
     <footer>
-        <!-- Your footer content goes here -->
+      <!-- Your footer content goes here -->
     </footer>
-</body>
+  </body>
 </html>

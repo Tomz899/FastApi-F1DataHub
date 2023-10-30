@@ -42,6 +42,39 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+nav li.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+nav .dropbtn {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+nav .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  z-index: 1;
+}
+
+nav .dropdown-content a {
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+nav .dropdown-content a:hover {
+  background-color: #555;
+}
+
+nav li.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 .container {
   max-width: 800px;
