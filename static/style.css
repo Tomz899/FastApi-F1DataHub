@@ -2,7 +2,7 @@ body {
   font-family: "Montserrat", Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background-color: #f5f6f7;
 }
 /* header */
 header {
@@ -76,11 +76,17 @@ nav li.dropdown:hover .dropdown-content {
   display: block;
 }
 
+/* container */
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+  background-color: #fff;
+  max-width: 900px;
+  margin: 30px auto;
   padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #cbc9c9;
+  box-shadow: 2px 2px 29px 11px hsla(240, 5%, 41%, 0.2);
 }
+
 h1 {
   text-align: center;
   color: #333;
